@@ -30,19 +30,25 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String home(Model model) {
-		model.addAttribute("title", "Home -SmartContact Manager");
+		model.addAttribute("title", "Home : Smart Contact Manager");
 		return "home";
 	}
 
 	@RequestMapping("/about")
 	public String about(Model model) {
-		model.addAttribute("title", "About -SmartContact Manager");
+		model.addAttribute("title", "About : Smart Contact Manager");
 		return "about";
+	}
+	
+	@GetMapping("/signin")
+	public String login(Model model) {
+		model.addAttribute("title", "Login Page");
+		return "login";
 	}
 
 	@RequestMapping("/signup")
 	public String signup(Model model) {
-		model.addAttribute("title", "Register -SmartContact Manager");
+		model.addAttribute("title", "Register : Smart Contact Manager");
 		model.addAttribute("user", new User());
 		return "signup";
 	}

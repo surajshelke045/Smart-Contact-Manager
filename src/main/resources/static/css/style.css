@@ -20,3 +20,20 @@ body{
 	padding: 20px;
 	background: #FFFFFF;
 }
+
+#login .container #login-row #login-column #login-box {
+  margin-top: 50px;
+  max-width: 600px;
+  height: 390px;
+  border: 1px solid #9C9C9C;
+  border-radius: 5px;
+  background-color: white;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+
+}
