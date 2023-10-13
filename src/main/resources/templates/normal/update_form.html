@@ -5,14 +5,14 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>User Dashboard</title>
+	<title th:text="${title}"></title>
 </head>
 
 <body>
 	<section class="">
 		<div class="card mr-4 ml-3 mb-4">
 			<div class="card-body">
-				<h1 class="font-weight-bold text-center">Add Conracts</h1>
+				<h1 class="font-weight-bold text-center">Update Conract</h1>
 				<div th:if="${session.message}" class="container">
 					<div  th:classappend="${'alert-'+session.message.type}" class="alert text-center"  role="alert" >
 							<span  th:text="${session.message.content}"></span>
@@ -24,7 +24,7 @@
 
 					<div class="row">
 						<div class="col-md-10 offset-md-1">
-							<form novalidate th:action="@{/user/process-contact}" th:object="${contact}"
+							<form novalidate th:action="@{/user/process-update}" th:object="${contact}"
 								enctype="multipart/form-data" method="post" class="mt-2">
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -32,7 +32,7 @@
 											<i class="fas fa-user-circle"></i>
 										</div>
 									</div>
-									<input type="text" class="form-control" name="name" placeholder="Enter Name here" required />
+									<input type="text" class="form-control" th:value="${contact.name}" name="name" placeholder="Enter Name here" required />
 								</div>
 								<div class="input-group mt-3">
 									<div class="input-group-prepend">
@@ -40,7 +40,7 @@
 											<i class="fas fa-user-alt"></i>
 										</div>
 									</div>
-									<input type="text" class="form-control" name="secondName" placeholder="Enter Nick Name here" required  />
+									<input type="text" class="form-control"  th:value="${contact.secondName}" name="secondName" placeholder="Enter Nick Name here" required  />
 								</div>
 								<div class="input-group mt-3">
 									<div class="input-group-prepend">
@@ -48,7 +48,7 @@
 											<i class="fa fa-phone"></i>
 										</div>
 									</div>
-									<input type="number" class="form-control" maxlength="10" name="phone" placeholder="Enter Phone Number here" required/>
+									<input type="number"  th:value="${contact.phone}" class="form-control" maxlength="10" name="phone" placeholder="Enter Phone Number here" required/>
 								</div>
 								
 									<div class="input-group mt-3">
@@ -57,7 +57,7 @@
 											<i class="fa fa-envelope"></i>
 										</div>
 									</div>
-									<input  type="email" class="form-control" name="email" placeholder="Enter Email here" required />
+									<input  type="email" class="form-control"  th:value="${contact.email}" name="email" placeholder="Enter Email here" required />
 								</div>
 								
 										<div class="input-group mt-3">
@@ -66,14 +66,17 @@
 									<i class="fa fa-briefcase"></i>
 										</div>
 									</div>
-									<input type="text" class="form-control" name="work" placeholder="Enter Work here" required />
+									<input type="text" class="form-control"  th:value="${contact.work}" name="work" placeholder="Enter Work here" required />
 								</div>
 								
 						    	<div class="form-group mt-3">
-								<textarea id="mytextarea" placeholder="Enter Contact Description here" class="form-control" name="description" rows="10"  required></textarea>
+								<textarea id="mytextarea" placeholder="Enter Contact Description here"  class="form-control" name="description" rows="10"  required  th:text="${contact.description}"></textarea>
+								</div>
+								<div class="container">
+								<img style="height: 250px;width: 250px;" class="image-fluid my-profile" th:src="@{'/img/'+${contact.image}}"	
 								</div>
 								
-								<div class="custome-file">
+								<div class="custome-file mt-3">
 								<input type="file" name="ProfileImage">
 									
 								</div>
@@ -91,8 +94,7 @@
 
 			</div>
 		</div>
-		</div>
-		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+				<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 			 <script>
       tinymce.init({
         selector: '#mytextarea'

@@ -7,10 +7,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -79,7 +81,8 @@ public class UserController {
 
 			if (file.isEmpty()) {
 				System.out.println("Image is Empty");
-				throw new Exception("Image is Empty");
+				contact.setImage("profile.png");
+			
 
 			} else {
 				// upload file and update name of file
@@ -122,5 +125,56 @@ public class UserController {
 		return "normal/show_contacts";
 
 	}
+	
+	@GetMapping("/{cId}/contact")
+	public String showContactDetails(@PathVariable("cId") Integer cId,Model model,Principal principal) {
+		System.out.println("CID : "+cId);
+		
+		Optional<Contact> contact = this.contactRepository.findById(cId);
+		Contact contact2 = contact.get();
+		String userName=principal.getName();
+		User user = this.userRepository.getUserByUserName(userName);
+		if(user.getId()==contact2.getUser().getId()) {
+			model.addAttribute("contact", contact2);
+			model.addAttribute("title", contact2.getName());
+		}
+			
+		return "normal/contact_details";
+	}
+//	
+//	@GetMapping("/delete/{cId}")
+//	public String deleteContact(@PathVariable("cId") Integer cId,Model model,HttpSession session) {
+//		
+//		Contact contact=this.contactRepository.findById(cId).get();
+//		
+//		System.out.println("Contact"+contact.getcId());
+//		
+//		contact.setUser(null);
+//	    this.contactRepository.delete(contact);
+//	
+//		System.out.println("DELETED...");
+//	session.setAttribute("message", new Message("Contact Deleted Successfully..!","success"));
+//		return "redirect:/user/show-contacts/0";
+//	}
+	
+	@GetMapping("/delete/{cId}")
+	public String deleteContact(@PathVariable("cId") Integer cId, Model model, HttpSession session,Principal principal) {
+	    Contact contact = this.contactRepository.findById(cId).get();
+	    User user=this.userRepository.getUserByUserName(principal.getName());
+	    user.getContacts().remove(contact);
+	    this.userRepository.save(user);
+	    System.out.println("DELETED...");
+	//    session.setAttribute("message", new Message("Contact Deleted Successfully..!", "success"));
+	    return "redirect:/user/show-contacts/0";
+	}
+	
+	@PostMapping("/update-contact/{cId}")
+	public String updateForm(@PathVariable("cId") Integer cId,Model model) {
+		model.addAttribute("title","Update Contact");
+		Contact contact=this.contactRepository.findById(cId).get();
+		model.addAttribute("contact", contact);
+		return "normal/update_form";
+	}
+
 
 }

@@ -118,7 +118,9 @@ public class Contact {
 		this.user = user;
 	}
 
-
+public boolean equels(Object obj) {
+	return this.cId==((Contact)obj).getcId();
+}
 
 	
 
