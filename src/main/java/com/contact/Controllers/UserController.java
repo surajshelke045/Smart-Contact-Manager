@@ -6,21 +6,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.contact.Helper.Message;
+import com.contact.Repository.ContactRepository;
 import com.contact.Repository.UserRepository;
 import com.contact.entities.Contact;
 import com.contact.entities.User;
@@ -31,6 +37,9 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private ContactRepository contactRepository;
 
 	@ModelAttribute
 	public void addCommonData(Model model, Principal principal) {
@@ -69,8 +78,9 @@ public class UserController {
 			User user = this.userRepository.getUserByUserName(name);
 
 			if (file.isEmpty()) {
-					System.out.println("Image is Empty");
-				
+				System.out.println("Image is Empty");
+				throw new Exception("Image is Empty");
+
 			} else {
 				// upload file and update name of file
 				contact.setImage(file.getOriginalFilename());
@@ -82,18 +92,35 @@ public class UserController {
 			contact.setUser(user);
 
 			user.getContacts().add(contact);
-			session.setAttribute("message", new Message("Contact Added Successfully !!", "alert-success"));
 
 			this.userRepository.save(user);
 
 			System.out.println("DATA :" + contact);
 			System.out.println("Added to DATABASE");
+			session.setAttribute("message", new Message("Contact Added Successfully !!", "success"));
+
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Something went wrong..! "+e.getMessage(),"alert-danger" ));
 			System.out.println("ERROR : " + e.getMessage());
 			e.printStackTrace();
+			session.setAttribute("message", new Message("Something went wrong..! " + e.getMessage(), "danger"));
 		}
 		return "normal/add_contact_form";
+	}
+
+	@GetMapping("/show-contacts/{page}")
+	public String showContacts(@PathVariable("page") Integer page, Model model, Principal principal) {
+
+		model.addAttribute("title", "Show User Contacts");
+
+		String username = principal.getName();
+		User user = this.userRepository.getUserByUserName(username);
+		Pageable  pageable = PageRequest.of(page, 2);
+		Page<Contact> contacts = this.contactRepository.findContactsByUser(user.getId(),pageable);
+		model.addAttribute("contacts", contacts);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", contacts.getTotalPages());
+		return "normal/show_contacts";
+
 	}
 
 }

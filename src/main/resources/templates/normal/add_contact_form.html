@@ -13,11 +13,12 @@
 		<div class="card mr-4 ml-3">
 			<div class="card-body">
 				<h1 class="font-weight-bold text-center">Add Conracts</h1>
-				<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert"
-							role="alert">
-							<p class="text-center" th:text="${session.message.content}"></p>
-							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-
+				<div th:if="${session.message}" class="container">
+					<div  th:classappend="${'alert-'+session.message.type}" class="alert text-center"  role="alert" >
+							<span  th:text="${session.message.content}"></span>
+							
+						</div>
+						<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 						</div>
 				<div class="container-fluid mt-1">
 
@@ -30,24 +31,24 @@
 										<div class="input-group-text">
 											<i class="fas fa-user-circle"></i>
 										</div>
-									</div><input type="text" class="form-control" name="name"
-										placeholder="Enter Name here">
+									</div>
+									<input type="text" class="form-control" name="name" placeholder="Enter Name here" required />
 								</div>
 								<div class="input-group mt-3">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
 											<i class="fas fa-user-alt"></i>
 										</div>
-									</div><input type="text" class="form-control" name="secondName"
-										placeholder="Enter Nick Name here">
+									</div>
+									<input type="text" class="form-control" name="secondName" placeholder="Enter Nick Name here" required  />
 								</div>
 								<div class="input-group mt-3">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
 											<i class="fa fa-phone"></i>
 										</div>
-									</div><input type="number" class="form-control" name="phone"
-										placeholder="Enter Phone Number here">
+									</div>
+									<input type="number" class="form-control" maxlength="10" name="phone" placeholder="Enter Phone Number here" required/>
 								</div>
 								
 									<div class="input-group mt-3">
@@ -55,8 +56,8 @@
 										<div class="input-group-text">
 											<i class="fa fa-envelope"></i>
 										</div>
-									</div><input type="email" class="form-control" name="email"
-										placeholder="Enter Email here">
+									</div>
+									<input  type="email" class="form-control" name="email" placeholder="Enter Email here" required />
 								</div>
 								
 										<div class="input-group mt-3">
@@ -64,12 +65,12 @@
 										<div class="input-group-text">
 									<i class="fa fa-briefcase"></i>
 										</div>
-									</div><input type="text" class="form-control" name="work"
-										placeholder="Enter Work here">
+									</div>
+									<input type="text" class="form-control" name="work" placeholder="Enter Work here" required />
 								</div>
 								
 						    	<div class="form-group mt-3">
-								<textarea placeholder="Enter Contact Description here" class="form-control" name="description" rows="10"></textarea>
+								<textarea id="mytextarea" placeholder="Enter Contact Description here" class="form-control" name="description" rows="10"  required></textarea>
 								</div>
 								
 								<div class="custome-file">
@@ -91,6 +92,12 @@
 			</div>
 		</div>
 		</div>
+		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+			 <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
 	</section>
 
 </body>

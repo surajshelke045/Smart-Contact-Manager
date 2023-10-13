@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymleaf.org"
- th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymleaf.org" th:replace="base::layout(~{::section})">
 
 <head>
 	<!-- Required meta tags -->
@@ -30,9 +29,9 @@
 							<div class="form-group">
 								<label for="name">Your Name</label>
 								<input type="text" name="name" class="form-control" id="name"
-								th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}"
-									aria-describedby="emailHelp" placeholder="Enter Name" th:value="${user.name}"
-									required />
+									th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}"
+									aria-describedby="emailHelp" required placeholder="Enter Name" th:value="${user.name}"
+									 />
 
 								<div class="invalid-feedback" th:each="e :${#fields.errors('name')}" th:text="${e}">
 									Please provide a valid city.
@@ -42,19 +41,19 @@
 							<div class="form-group">
 								<label for="email">Your Email</label>
 								<input type="email" name="email" class="form-control" id="email"
-									aria-describedby="emailHelp" placeholder="Enter Email" th:value="${user.email}"
-									required />
+									aria-describedby="emailHelp" required placeholder="Enter Email" th:value="${user.email}"
+									 />
 							</div>
 
 							<div class="form-group">
 								<label for="password">Your Password</label>
 								<input type="password" name="password" class="form-control" id="password"
-									aria-describedby="emailHelp" placeholder="Enter password" required />
+									aria-describedby="emailHelp" required placeholder="Enter password" />
 							</div>
 
 							<div class="form-group">
-								<textarea name="about" id="about" rows="6" class="form-control"
-									placeholder="Enter something yourself.." th:text="${user.about}"></textarea>
+								<textarea name="about" id="about" rows="6" class="form-control" required
+									placeholder="Enter something yourself.." th:text="${user.about}" ></textarea>
 							</div>
 							<div class="form-group form-check">
 								<input type="checkbox" name="aggrement" id"aggrement" />
