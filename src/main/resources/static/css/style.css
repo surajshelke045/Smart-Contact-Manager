@@ -63,7 +63,7 @@ body {
 }
 
 .sidebar {
-	width: 18%;
+	width: 19%;
 	height: 100%;
 	position: fixed;
 	padding-top: 45px;
@@ -74,7 +74,7 @@ body {
 .sidebar a {
 	display: block;
 	width: 100%;
-	padding: 10px 25px;
+	padding: 10px 35px;
 	text-decoration: none;
 	color: mediumslateblue;
 	font-weight: 500;

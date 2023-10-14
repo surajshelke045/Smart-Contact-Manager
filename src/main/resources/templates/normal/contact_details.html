@@ -48,8 +48,10 @@
 
 						</div>
 						<div class="container mt-3">
-							<button  class="btn btn-warning  mr-2">Edit</button>
-							<button th:onclick="| deleteContact(${contact.cId}) |" class="btn btn-danger">Delete</button>
+								<form th:action="@{'/user/update-contact/'+${contact.cId}}" method="post">
+										<button type="submit" class="btn btn-warning  mr-2 btn-block">Edit</button>
+										</form>
+							<button th:onclick="| deleteContact(${contact.cId}) |" class="btn btn-danger mt-3 btn-block">Delete</button>
 						</div>
 					</div>
 				<o/div>
