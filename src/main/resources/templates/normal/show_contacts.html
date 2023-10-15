@@ -5,21 +5,25 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title th:text="${" title"}"></title>
+	<title th:text="${title}"></title>
 </head>
 
 <body>
 	<div th:if="${session.message}" class="container">
 		<div th:classappend="${'alert-'+session.message.type}" class="alert text-center" role="alert">
 			<span th:text="${session.message.content}"></span>
-
-		</div>
+	</div>
+	</div>
 		<section>
-
 			<div class="card mr-3 ml-2">
 				<div class="card-body">
 					<div class="text-center">
 						<h1 class="font-weight-bold">Your Contacts</h1>
+						<div class="search-container my-3">
+							<input onkeyup="search()" id="search-input" type="text" class="form-control" placeholder="Search your contatcts" />
+						<div class="search-result">
+						</div>
+						</div>
 						<table class="table table-striped">
 							<thead>
 								<tr>
