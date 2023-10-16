@@ -24,6 +24,7 @@
 						<div class="search-result">
 						</div>
 						</div>
+						<div class="table-responsive">
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -62,6 +63,7 @@
 
 							</tbody>
 						</table>
+						</div>
 						<!--   Pagination-->
 
 						<nav aria-label="Page navigation example">
@@ -80,6 +82,13 @@
 					</div>
 				</div>
 			</div>
+				<script>
+			$(document).ready(() =>{
+				$(".item").removeClass("active");
+				$("#contacts-link").addClass("active");	
+			});
+			
+		</script>
 		</section>
 
 </body>

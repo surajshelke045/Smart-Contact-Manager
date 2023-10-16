@@ -11,13 +11,19 @@
 <body>
 	<section class="">
 		<div class="container">
+				<div th:if="${session.message}" class="container">
+						<div th:classappend="${'alert-'+session.message.type}" class="alert text-center" role="alert">
+							<span th:text="${session.message.content}"></span>
+						</div>
+						<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+					</div>
 			<div class="card">
 				<div class="card-body my-5">
 					<div class="container text-center">
 						<img style="height: 200px;width: 200px;" class="my-profile"
 							th:src="@{'/img/contact.png'}" />
 					</div>
-					<h1 class="text-center mt-3 ">Start Adding your Contacts</h1>
+					<h1 class="text-center mt-3 ">Start Adding your contacts</h1>
 					<div class="container text-center">
 					<a th:href="@{/user/add-contact}" class="btn btn-primary btn-block text-uppercase mt-4">Add New Contact</a>	
 					</div>
@@ -26,6 +32,13 @@
 			</div>
 
 		</div>
+		<script>
+			$(document).ready(() =>{
+				$(".item").removeClass("active");
+				$("#home-link").addClass("active");	
+			});
+			
+		</script>
 	</section>
 
 </body>
