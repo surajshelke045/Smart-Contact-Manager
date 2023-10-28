@@ -23,8 +23,10 @@ public class User {
 	@NotBlank(message="Name filed is required !!")
 	@Size(min = 2,max = 20,message = "min 2 and max 20 characters are allowed !!")
 	private String name;
+	@NotBlank(message="Email filed is required !!")
 	@Column(unique = true)
 	private String email;
+	@NotBlank(message="Password filed is required !!")
 	private String password;
 	private String role; 
 	private boolean enabled;

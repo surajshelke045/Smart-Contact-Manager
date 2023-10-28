@@ -30,8 +30,8 @@
 								<label for="name">Your Name</label>
 								<input type="text" name="name" class="form-control" id="name"
 									th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}"
-									aria-describedby="emailHelp" required placeholder="Enter Name" th:value="${user.name}"
-									 />
+									aria-describedby="emailHelp" required placeholder="Enter Name"
+									th:value="${user.name}" />
 
 								<div class="invalid-feedback" th:each="e :${#fields.errors('name')}" th:text="${e}">
 									Please provide a valid city.
@@ -41,20 +41,35 @@
 							<div class="form-group">
 								<label for="email">Your Email</label>
 								<input type="email" name="email" class="form-control" id="email"
-									aria-describedby="emailHelp" required placeholder="Enter Email" th:value="${user.email}"
-									 />
+									th:classappend="${#fields.hasErrors('email') ? 'is-invalid':''}"
+									aria-describedby="emailHelp" required placeholder="Enter Email"
+									th:value="${user.email}" />
+								<div class="invalid-feedback" th:each="e :${#fields.errors('email')}" th:text="${e}">
+									Please provide a valid city.
+								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="password">Your Password</label>
 								<input type="password" name="password" class="form-control" id="password"
+									th:classappend="${#fields.hasErrors('password') ? 'is-invalid':''}"
 									aria-describedby="emailHelp" required placeholder="Enter password" />
+								<div class="invalid-feedback" th:each="e :${#fields.errors('password')}" th:text="${e}">
+									Please provide a valid city.
+								</div>
 							</div>
 
 							<div class="form-group">
+								<label for="about">About Yourself</label>
 								<textarea name="about" id="about" rows="6" class="form-control" required
-									placeholder="Enter something yourself.." th:text="${user.about}" ></textarea>
+									th:classappend="${#fields.hasErrors('about') ? 'is-invalid':''}"
+									placeholder="Tell us something about yourself..."
+									th:text="${user.about}"></textarea>
+
+								<div class="invalid-feedback" th:each="error :${#fields.errors('about')}"
+									th:text="${error}"></div>
 							</div>
+
 							<div class="form-group form-check">
 								<input type="checkbox" name="aggrement" id"aggrement" />
 								<label>Accept terms and Condition</label>
@@ -72,7 +87,6 @@
 					</div>
 
 				</div>
-
 
 			</div>
 
